@@ -1,3 +1,6 @@
+import time
+tic = time.perf_counter()
+
 with open('input.txt') as f:
     fishies = [int(x) for x in f.read().split(',')]
 
@@ -16,13 +19,16 @@ def get_fishies(days):
     return fishies
 
 print(f'Answer part I: {len(get_fishies(80))}')
+toc = time.perf_counter()
+print(f'{toc - tic:0.4f}s')
 
 
 from collections import Counter, deque
+tic = time.perf_counter()
 with open('input.txt') as f:
     fishies = [int(x) for x in f.read().split(',')]
 
-occ_list = {-1:0, 0:0, 1:0, 2:0, 3:0, 4:0, 5:0, 6:0, 7:0, 8:0} | Counter(fishies)
+occ_list = {**{-1:0, 0:0, 1:0, 2:0, 3:0, 4:0, 5:0, 6:0, 7:0, 8:0}, **Counter(fishies)}
 days = 256
 for day in range(days):
     rotated_values = deque(occ_list.values())
@@ -35,3 +41,5 @@ for day in range(days):
             occ_list[-1] = 0
 
 print(f'Answer part II: {sum(occ_list.values())}')
+toc = time.perf_counter()
+print(f'{toc - tic:0.4f}s')
